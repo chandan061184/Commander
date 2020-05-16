@@ -8,6 +8,11 @@ namespace Commander.Data
 {
     public class MockCommanderRepo : ICommanderRepo
     {
+        public void CreateCommand(Command cmd)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<Command> GetAllCommands()
         {
             var commands = new List<Command>
@@ -23,6 +28,11 @@ namespace Commander.Data
         public Command GetCommandById(int Id)
         {
             return new Command { Id = 0, HowTo = "Create Web API Core project", Line = "Test Web API Core", Platform = "LINUX" };
+        }
+
+        public bool SaveChanges()
+        {
+            return true;
         }
     }
 }
