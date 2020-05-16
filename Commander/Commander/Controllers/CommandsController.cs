@@ -12,7 +12,13 @@ namespace Commander.Controllers
     [ApiController]
     public class CommandsController : ControllerBase
     {
-        private readonly MockCommanderRepo _repository = new MockCommanderRepo();
+        /* Dependency injection : Create a variable of Interface and inject in the
+           constructor of the class. */
+        private readonly ICommanderRepo _repository;
+        public CommandsController(ICommanderRepo repository)
+        {
+            _repository = repository;
+        }
         // Get api/commands
         [HttpGet]
         public ActionResult <IEnumerable<Command>> GetAllCommands()
