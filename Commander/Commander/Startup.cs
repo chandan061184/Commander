@@ -28,7 +28,7 @@ namespace Commander
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddScoped<ICommanderRepo, MockCommanderRepo>();
+            services.AddScoped<ICommanderRepo, CommanderRepo>();
             services.AddDbContext<CommnderContext>(opt=>opt.UseSqlServer
             (Configuration.GetConnectionString("CommanderConnection")));
         }
