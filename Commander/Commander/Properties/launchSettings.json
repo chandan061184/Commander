@@ -19,7 +19,8 @@
     },
     "Commander": {
       "commandName": "Project",
-      "launchUrl": "commands",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

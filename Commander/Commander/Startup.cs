@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 
 namespace Commander
 {
@@ -36,6 +37,11 @@ namespace Commander
             (Configuration.GetConnectionString("CommanderConnection")));
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            services.AddSwaggerGen(c =>            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Commander API", Version = "v1" });
+                c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,6 +51,10 @@ namespace Commander
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c=> c.SwaggerEndpoint(url:"/swagger/v1/swagger.json", name: "Commander API"));
 
             app.UseHttpsRedirection();
 
