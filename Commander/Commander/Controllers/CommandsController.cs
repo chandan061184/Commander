@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Commander.Data;
+using Commander.Dtos;
 using Commander.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,16 +17,18 @@ namespace Commander.Controllers
         /* Dependency injection : Create a variable of Interface and inject in the
            constructor of the class. */
         private readonly ICommanderRepo _repository;
-        public CommandsController(ICommanderRepo repository)
+        private readonly IMapper _mapper;
+        public CommandsController(ICommanderRepo repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
         // Get api/commands
         [HttpGet]
         public ActionResult <IEnumerable<Command>> GetAllCommands()
         {
             var commandItems = _repository.GetAllCommands();
-            return Ok(commandItems);
+            return Ok(_mapper.Map<IEnumerable<CommandReadDto>>(commandItems));
             
         }
         // Get api/commands/{id}
@@ -32,7 +36,12 @@ namespace Commander.Controllers
         public ActionResult <Command> GetCommandById(int id)
         {
             var command = _repository.GetCommandById(id);
-            return Ok(command);
+            if(command != null)
+            {
+                return Ok(_mapper.Map<CommandReadDto>(command));
+            }
+            return NotFound();
+            
         }
     }
 }
