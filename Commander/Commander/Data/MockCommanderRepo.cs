@@ -10,12 +10,19 @@ namespace Commander.Data
     {
         public IEnumerable<Command> GetAllCommands()
         {
-            throw new NotImplementedException();
+            var commands = new List<Command>
+            {
+                new Command { Id = 0, HowTo = "Create Web API Core project", Line = "Test Web API Core", Platform = "LINUX" },
+                new Command { Id = 0, HowTo = "Create web application project", Line = "Test application project", Platform = "Windows" },
+                new Command { Id = 0, HowTo = "Create Razor page project", Line = "Test Razor page", Platform = "MAC" }
+            };
+
+            return commands;
         }
 
         public Command GetCommandById(int Id)
         {
-            throw new NotImplementedException();
+            return new Command { Id = 0, HowTo = "Create Web API Core project", Line = "Test Web API Core", Platform = "LINUX" };
         }
     }
 }
